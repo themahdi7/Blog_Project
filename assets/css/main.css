@@ -538,6 +538,16 @@ iframe {
   visibility: visible;
   opacity: 1;
 }
+    .btn_Profile {
+        margin: 10px;
+        width: 165px;
+        height: 34.5px;
+        border: none;
+        border-radius: 10px;
+        background-color: white;
+        float: right;
+    }
+
 
 @media (max-width: 992px) {
   .alert-validate::before {
