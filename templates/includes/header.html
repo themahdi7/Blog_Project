@@ -1,0 +1,72 @@
+{% load static %}
+{# Header #}
+
+<header class="">
+    <nav class="navbar navbar-expand-lg">
+        <div class="container">
+            <a class="navbar-brand" href="{% url 'home_app:home' %}"><h2>Stand Blog<em>.</em></h2></a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive"
+                    aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarResponsive">
+                <ul class="navbar-nav ml-auto">
+                    <li class="nav-item {% block active_home %} {% endblock %}">
+                        <a class="nav-link" href="{% url 'home_app:home' %}">Home
+                            <span class="sr-only">(current)</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="about.html">About Us</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link {% block active_list %} {% endblock %}" href="{% url 'blog:articles_list' %}">
+                            All Articles</a>
+                    </li>
+                    <li class="nav-item {% block active_details %} {% endblock %}">
+                        <a class="nav-link" href="#">Post Details</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="contact.html">Contact Us</a>
+                    </li>
+                    <li class="nav-item">
+                        {% if request.user.is_authenticated %}
+                            <!-- Example single danger button -->
+                            <div class="btn-group d-flex nav-item ">
+                            {% if request.user.first_name %}
+                                <button type="button" class="btn dropdown-toggle"
+                                        data-toggle="dropdown"
+                                        aria-haspopup="true" aria-expanded="false">
+
+                                    {{ request.user.first_name }} {{ request.user.last_name }}
+                                </button>
+                            {% else %}
+                                <button type="button" class="btn dropdown-toggle"
+                                        data-toggle="dropdown"
+                                        aria-haspopup="true" aria-expanded="false">
+
+                                    {{ request.user.username }}
+                                </button>
+                            {% endif %}
+                            <div class="dropdown-menu">
+                                <a class="dropdown-item" href="#">Profile</a>
+                                <a class="dropdown-item" href="#">Another action</a>
+                                <div class="dropdown-divider"></div>
+                                <a class="dropdown-item" href="{% url 'account:logout' %}"><span
+                                        class="badge badge-pill badge-danger ">Logout</span></a>
+                            </div>
+                        {% else %}
+                            <div class="d-flex">
+                                <a class="nav-link" href="{% url 'account:login' %}">Login</a> <span
+                                    class=" m-2 d-flex">/</span>
+                                <a class="nav-link" href="{% url 'account:register' %}">Register</a>
+                            </div>
+
+                        {% endif %}
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+</header>
