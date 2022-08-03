@@ -1,0 +1,155 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+
+    <!-- Page Content -->
+    <!-- Banner Starts Here -->
+    <div class="heading-page header-text">
+        <section class="page-heading">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-12">
+                        <div class="text-content">
+                            <h4>contact us</h4>
+                            <h2>let’s stay in touch!</h2>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <!-- Banner Ends Here -->
+
+
+    <section class="contact-us">
+        <div class="container">
+            <div class="row">
+
+                <div class="col-lg-12">
+                    <div class="down-contact">
+                        <div class="row">
+                            <div class="col-lg-8">
+                                <div class="sidebar-item contact-form">
+                                    <div class="sidebar-heading">
+                                        {% if request.user.is_authenticated %}
+
+                                            <h2>Send your message</h2>
+                                            </div>
+                                            <div class="content">
+                                                <form style="text-transform:none" id="contact" action="" method="post">
+                                                    {% csrf_token %}
+                                                    <div class="row">
+
+                                                        {% if form.non_field_errors %}
+                                                            <div class="alert alert-danger">{{ form.non_field_errors }}</div>
+                                                        {% endif %}
+
+                                                        {% if form.name.errors %}
+                                                            <div class="alert alert-danger">{{ form.name.errors }}</div>
+                                                        {% endif %}
+                                                        {{ form.name }}
+                                                        {#                                                {% if form.email.errors %}#}
+                                                        {#                                                    <div class="alert alert-danger">{{ form.email.errors }}</div>#}
+                                                        {#                                                {% endif %}#}
+                                                        {#                                                {{ form.email }}#}
+                                                        {% if form.subject.errors %}
+                                                            <div class="alert alert-danger">{{ form.subject.errors }}</div>
+                                                        {% endif %}
+                                                        {{ form.subject }}
+                                                        {% if form.body.errors %}
+                                                            <div class="alert alert-danger">{{ form.body.errors }}</div>
+                                                        {% endif %}
+                                                        {{ form.body }}
+                                                        <br><br>
+                                                        <div class="col-lg-12">
+                                                            <fieldset>
+                                                                <button type="submit" id="form-submit"
+                                                                        class="main-button">Send
+                                                                    Message
+                                                                </button>
+                                                            </fieldset>
+                                                        </div>
+                                                    </div>
+                                                </form>
+                                                <div class="col-lg-4">
+                                                    <div class="sidebar-item contact-information">
+                                                        <div class="sidebar-heading">
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            </div>
+                                            </div>
+
+
+                                        {% else %}
+                                            <section class="call-to-action">
+                                                <div class="container">
+                                                    <div class="row">
+                                                        <div class="col-lg-12">
+                                                            <div class="main-content">
+                                                                <div class="row">
+                                                                    <div class="col-lg-12">
+                                                                        <span>For send us a message you need to register in site</span>>
+                                                                        <h4>Please join us </h4>
+                                                                    </div>
+                                                                    <div class="col-lg-1">
+                                                                        <div class="main-button">
+                                                                            <a rel="nofollow"
+                                                                               href="{% url 'account:register' %}"
+                                                                               target="_blank">Register</a>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </section>
+                                            </div>
+                                            </div>
+                                            </div>
+
+                                        {% endif %}
+                <div class="col-lg-4">
+                    <div class="sidebar-item contact-information">
+                        <div class="sidebar-heading">
+                            <h2>contact information</h2>
+                        </div>
+                        <div class="content">
+                            <ul>
+                                <li>
+                                    <h5>{{ contact.phonenumber }}</h5>
+                                    <span>PHONE NUMBER</span>
+                                </li>
+                                <li>
+                                    <h5>{{ contact.email }}</h5>
+                                    <span>EMAIL ADDRESS</span>
+                                </li>
+                                <li>
+                                    <h5>{{ contact.address }}
+                                        <br></h5>
+                                    <span>STREET ADDRESS</span>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        </div>
+
+{#        <div class="col-lg-12">#}
+{#            <div id="map">#}
+{#                <iframe src="{{ contact.map_address.url }}"#}
+{#                        width="100%" height="450px" frameborder="0" style="border:0" allowfullscreen></iframe>#}
+{#            </div>#}
+{#        </div>#}
+
+        </div>
+        </div>
+    </section>
+
+{% endblock %}

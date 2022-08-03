@@ -1,13 +1,8 @@
 {% extends 'base.html' %}
 {% load static %}
+{% load filters %}
 {% load render_partial %}
-
-{% block title %}
-    Home
-{% endblock %}
-{% block active_home %}
-    active
-{% endblock %}
+{% load social_share %}
 
 {% block content %}
     <!-- Page Content -->
@@ -20,14 +15,15 @@
                         <img src="{{ article.Image.url }}" alt="{{ article.Title }}">
                         <div class="item-content">
                             <div class="main-content">
+
                                 <div class="meta-category">
                                     <span>{{ article.Category.first }}</span>
                                 </div>
                                 <a href="{{ article.get_absolute_url }}"><h4>{{ article.Title }}</h4></a>
                                 <ul class="post-info">
-                                    <li><a href="#">{{ article.Author.username }}</a></li>
-                                    <li><a href="#">{{ article.Created }}</a></li>
-                                    <li><a href="#">12 Comments</a></li>
+                                    <li><a>{{ article.Author.username }}</a></li>
+                                    <li><a>{{ article.Created }}</a></li>
+                                    <li><a>{{ article.comments|counter }} Comments</a></li>
                                 </ul>
                             </div>
                         </div>
@@ -52,28 +48,32 @@
                                             <img src="{{ article.Image.url }}" alt="">
                                         </div>
                                         <div class="down-content">
-                                            <span>Lifestyle</span>
-                                            <a href="{{ article.get_absolute_url }}"><h4>{{ article.Title }}</h4></a>
+                                            {% for item in article.Category.all %}
+                                                <a href="{{ item.get_absolute_url }}"><span>{{ item }}</span></a>
+                                            {% endfor %}                                            <a
+                                                href="{{ article.get_absolute_url }}"><h4>{{ article.Title }}</h4></a>
                                             <ul class="post-info">
-                                                <li><a href="#">{{ article.Author }}</a></li>
-                                                <li><a href="#">{{ article.Created }}</a></li>
-                                                <li><a href="#">12 Comments</a></li>
+                                                <li><a>{{ article.Author }}</a></li>
+                                                <li><a>{{ article.Created }}</a></li>
+                                                <li><a>{{ article.comments|counter }} Comments</a></li>
                                             </ul>
-                                            <p> {{ article.Body }}</p>
+                                            <p> {{ article.Body|truncatewords:50 }}</p>
                                             <div class="post-options">
                                                 <div class="row">
                                                     <div class="col-6">
                                                         <ul class="post-tags">
-                                                            <li><i class="fa fa-tags"></i></li>
-                                                            <li><a href="#">Beauty</a>,</li>
-                                                            <li><a href="#">Nature</a></li>
+{#                                                            <li><i class="fa fa-tags"></i></li>#}
+{#                                                            <li><a href="#">Beauty</a>,</li>#}
+{#                                                            <li><a href="#">Nature</a></li>#}
                                                         </ul>
                                                     </div>
                                                     <div class="col-6">
                                                         <ul class="post-share">
                                                             <li><i class="fa fa-share-alt"></i></li>
-                                                            <li><a href="#">Facebook</a>,</li>
-                                                            <li><a href="#"> Twitter</a></li>
+                                                            <li>{% post_to_telegram article.get_absolute_url "Telegram" %}</li>
+                                                            <li>,</li>
+                                                            <li>{% post_to_whatsapp article.get_absolute_url "Whatsapp" %}</li>
+
                                                         </ul>
                                                     </div>
                                                 </div>
@@ -94,6 +94,28 @@
                 {% render_partial "home_app:sidebar" %}
             </div>
         </div>
+        <section class="call-to-action">
+      <div class="container">
+        <div class="row">
+          <div class="col-lg-12">
+            <div class="main-content">
+              <div class="row">
+                <div class="col-lg-8">
+                  <span>MAHDI KERAMATI</span>
+                  <h4>Read more about us </h4>
+                </div>
+                <div class="col-lg-4">
+                  <div class="main-button">
+                    <a rel="nofollow" href="{% url 'home_app:about_us' %}" target="_blank">About Us</a>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
     </section>
 
 

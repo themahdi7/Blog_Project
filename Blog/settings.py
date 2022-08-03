@@ -25,7 +25,7 @@ SECRET_KEY = 'django-insecure-5#brel!dhch&t38th+pe&shs)k62kx7^rldk&%k67xb+9+qons
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ["*"]
 
 # Application definition
 
@@ -47,6 +47,7 @@ INSTALLED_APPS = [
 
     'django_cleanup.apps.CleanupConfig',
     'django_render_partial',
+    'django_social_share',
 ]
 
 MIDDLEWARE = [
@@ -75,7 +76,6 @@ TEMPLATES = [
                 'django.contrib.messages.context_processors.messages',
                 'context_processors.context_processors.recent',
                 'context_processors.context_processors.categories',
-
             ],
         },
     },
@@ -114,7 +114,7 @@ AUTH_PASSWORD_VALIDATORS = [
 # Internationalization
 # https://docs.djangoproject.com/en/4.0/topics/i18n/
 
-LANGUAGE_CODE = 'en-us'
+LANGUAGE_CODE = 'fa-ir'
 
 TIME_ZONE = 'Asia/Tehran'
 

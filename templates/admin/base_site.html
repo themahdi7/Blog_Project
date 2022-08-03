@@ -1,0 +1,14 @@
+{% extends "admin/base.html" %}
+{% load static %}
+{% block title %} مدیریت وبلاگ جنگو{% endblock %}
+
+{% block branding %}
+<h1 id="site-name"><a href="{% url 'admin:index' %}">مدیریت وبلاگ</a></h1>
+{% endblock %}
+
+{% block extrastyle %}
+    <link rel="stylesheet" href="{% static 'css/override.css' %}" type="text/css">
+
+{% endblock %}
+
+{% block nav-global %}{% endblock %}

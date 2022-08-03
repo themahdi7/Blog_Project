@@ -10,8 +10,23 @@
       rel="stylesheet">
 
 <title>
-    {% block title %} {% endblock %}
+    {% if request.resolver_match.url_name == 'home' %}
+        Home{% endif %}
+    {% if request.resolver_match.url_name == 'articles_list' %}
+        All Articles{% endif %}
+    {% if request.resolver_match.url_name == 'about_us' %}
+        About Us{% endif %}
+    {% if request.resolver_match.url_name == 'contact_us' %}
+        Contact Us{% endif %}
+    {% if request.resolver_match.url_name ==  'article_detail' %}
+        {{ article.Title }}
+    {% endif %}
+    {% if request.resolver_match.url_name ==  'category_detail' %}
+            Category Detail
+    {% endif %}
+
 </title>
+
 
 <!-- Bootstrap core CSS -->
 <link href="{% static "vendor/bootstrap/css/bootstrap.min.css" %}" rel="stylesheet">

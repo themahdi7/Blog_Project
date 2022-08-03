@@ -1,0 +1,72 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+
+    <!-- Page Content -->
+    <!-- Banner Starts Here -->
+    <div class="heading-page header-text">
+        <section class="page-heading">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-12">
+                        <div class="text-content">
+                            <h4>about us</h4>
+                            <h2>more about us!</h2>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <!-- Banner Ends Here -->
+
+
+    <section class="about-us">
+        <div class="container">
+
+            <div class="row">
+                <div class="col-lg-12">
+                    <img src="{{ about.image.url }}" alt="">
+                    <p> {{ about.biography }}<br><br></p>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-lg-6">
+                    <h4>{{ about.first_subject }}</h4>
+                    <p>{{ about.column }}</p>
+                </div>
+                <div class="col-lg-6">
+                    <h4>{{ about.second_subject }}</h4>
+                    <p>{{ about.column2 }}</p>
+                </div>
+            </div>
+            <hr>
+            <div class="row">
+                <div class="col-lg-12">
+                    <ul class="social-icons">
+                        {% if about.instagram %}
+                            <li><a href="{{ about.instagram }}"><i class="fa fa-instagram"></i></a>
+                        {% endif %}
+                        {% if about.twitter %}
+                            <li><a href="{{ about.twitter }}"><i class="fa fa-twitter"></i></a>
+                        {% endif %}
+                        {% if about.facebook %}
+                            <li><a href="{{ about.facebook }}"><i class="fa fa-facebook"></i></a>
+                        {% endif %}
+                        {% if about.linkedin %}
+                            <li><a href="{{ about.linkedin }}"><i class="fa fa-linkedin"></i></a>
+                        {% endif %}
+                    </ul>
+                </div>
+            </div>
+
+
+        </div>
+    </section>
+
+
+
+{% endblock %}

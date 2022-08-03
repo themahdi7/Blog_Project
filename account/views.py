@@ -1,48 +1,68 @@
 from django.contrib.auth.models import User
 from django.shortcuts import render, redirect
-from django.contrib.auth import authenticate, login, logout
-
+from django.contrib.auth import login, logout
+from .forms import LoginForm, RegisterForm, ProfileForm
 
 
 def userlogin(request):
-
-    if request.user.is_authenticated == True:
-        return redirect('home_app:home')
-    if request.method == "POST":  # check form method
-        username = request.POST.get('username')  # get the username from user
-        password = request.POST.get('password')  # get the password from user
-        user = authenticate(request, username=username, password=password)  # check the username and password entered by the user
-        if user is not None:
-            # if username and password is true do this:
-            login(request, user)
-            return redirect('home_app:home')
-            # back to home page
-
-    return render(request, "account/login.html", {})
-
-
-def user_register(request):
-    context = {"errors": []}
     if request.user.is_authenticated == True:
         return redirect('home_app:home')
 
     if request.method == "POST":
-        username = request.POST.get('username')
-        email = request.POST.get('email')
-        password1 = request.POST.get('password1')
-        password2 = request.POST.get('password2')
+        form = LoginForm(request.POST)
+        if form.is_valid():
+            user = User.objects.get(username=form.cleaned_data.get('username'))
+            login(request, user)
+            return redirect('home_app:home')
 
-        if password1 != password2:
-            context['errors'].append('Passwords does not match')
-            return render(request, "account/register.html", context)
+    else:
+        form = LoginForm()
+    return render(request, "account/login.html", {'form': form})
 
-        user = User.objects.create_user(username=username, email=email, password=password1)
-        login(request, user)
+
+def user_register(request):
+    if request.user.is_authenticated == True:
         return redirect('home_app:home')
 
+    form = RegisterForm(request.POST)
+    if form.is_valid():
+        user_email = form.cleaned_data.get('email')
+        user_username = form.cleaned_data.get('username')
+        user_password = form.cleaned_data.get('password')
+        # check username and email
+        user_name: bool = User.objects.filter(username=user_username).exists()
+        user_email: bool = User.objects.filter(email__iexact=user_email).exists()
+        if user_name:
+            form.add_error('username', 'This username already exists')
 
-    return render(request, "account/register.html", {})
+        elif user_email:
+            form.add_error('email', 'Looks like you already have a user. Did you try logging in?')
+
+        else:
+            new_user = User(email=user_email, username=user_username)
+            new_user.set_password(user_password)
+            new_user.save()
+            login(request, new_user)
+            return redirect('home_app:home')
+    return render(request, "account/register.html", {'form': form})
+
 
 def user_logout(request):
     logout(request)
     return redirect('home_app:home')
+
+
+def user_profile(request):
+    if request.user.is_authenticated == False:
+        return redirect('home_app:home')
+
+    user = request.user
+    form = ProfileForm(instance=user)
+
+    if request.method == 'POST':
+        form = ProfileForm(instance=user, data=request.POST)
+        if form.is_valid():
+            user_first_name = form.cleaned_data.get('first_name')
+            user_last_name = form.cleaned_data.get('last_name')
+            form.save()
+    return render(request, 'account/edit_profile.html', {'form': form})

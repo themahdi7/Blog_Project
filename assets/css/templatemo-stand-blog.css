@@ -607,6 +607,7 @@ ul.page-numbers li a:hover {
 .blog-posts .comments ul li .author-thumb {
     display: inline;
     float: left;
+
 }
 
 .blog-posts .comments ul li .author-thumb img {
@@ -1006,6 +1007,10 @@ footer p a:hover {
 
 .about-us ul li a:hover {
     background-color: #f48840;
+}
+
+.img-com{
+    color: #0b2e13;
 }
 
 

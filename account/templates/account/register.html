@@ -34,8 +34,8 @@
     <div class="container-login100" style="background-image: url('{% static "images/bg-01.jpg" %}');">
         <div class="wrap-login100">
 
-            <form class="login100-form validate-form"  method="post">
-                {% csrf_token %}
+            <form class="login100-form validate-form" method="post"> {% csrf_token %}
+
                 <span class="login100-form-logo">
 						<i class="zmdi zmdi-landscape"></i>
 					</span>
@@ -43,37 +43,35 @@
                 <span class="login100-form-title p-b-34 p-t-27">
 						Register
 					</span>
-{#                <p class="text text-danger"> error</p>#}
-                {% if errors %}
-                     {% for item in errors %}
-                     <p class="badge badge-danger">{{ item }}</p>
-                     {% endfor %}
-                {% endif %}
                 <br><br>
+                {% if form.username.errors %}
+                    <div class="badge badge-pill badge-danger ">{{ form.username.errors }}</div>
+                {% endif %}
                 <div class="wrap-input100 validate-input" data-validate="Enter username">
-                    <input class="input100" type="text" name="username" placeholder="Username">
+                    {{ form.username }}
                     <span class="focus-input100" data-placeholder="&#xf207;"></span>
                 </div>
-
+                {% if form.email.errors %}
+                    <div class="badge badge-pill badge-danger ">{{ form.email.errors }}</div>
+                {% endif %}
                 <div class="wrap-input100 validate-input" data-validate="Enter email">
-                    <input class="input100" type="email" name="email" placeholder="Email">
+                    {{ form.email }}
                     <span class="focus-input100" data-placeholder="&#xf207;"></span>
                 </div>
 
-
-                <div class="wrap-input100 validate-input"
-                {% if errors %}
-                     {% for item in errors %}
-                     data-validate="{{ item }}"
-                     {% endfor %}
-                {% endif %}>
-                    <input class="input100" type="password" name="password1" placeholder="Password">
+                {% if form.password.errors %}
+                    <div class="badge badge-pill badge-danger ">{{ form.password.errors }}</div>
+                {% endif %}
+                <div class="wrap-input100 validate-input">
+                    {{ form.password }}
                     <span class="focus-input100" data-placeholder="&#xf191;"></span>
                 </div>
 
-
+                {% if form.password2.errors %}
+                    <div class="badge badge-pill badge-danger ">{{ form.password2.errors }}</div>
+                {% endif %}
                 <div class="wrap-input100 validate-input" data-validate="Enter password">
-                    <input class="input100" type="password" name="password2" placeholder="Confirm Password">
+                    {{ form.password2 }}
                     <span class="focus-input100" data-placeholder="&#xf191;"></span>
                 </div>
 

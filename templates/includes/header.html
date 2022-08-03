@@ -11,23 +11,26 @@
             </button>
             <div class="collapse navbar-collapse" id="navbarResponsive">
                 <ul class="navbar-nav ml-auto">
-                    <li class="nav-item {% block active_home %} {% endblock %}">
+                    <li class="nav-item {% if request.resolver_match.url_name == 'home' %} active{% endif %}">
                         <a class="nav-link" href="{% url 'home_app:home' %}">Home
                             <span class="sr-only">(current)</span>
                         </a>
                     </li>
+
                     <li class="nav-item">
-                        <a class="nav-link" href="about.html">About Us</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link {% block active_list %} {% endblock %}" href="{% url 'blog:articles_list' %}">
+                        <a class="nav-link {% if request.resolver_match.url_name == 'articles_list' %} active{% endif %} "
+                           href="{% url 'blog:articles_list' %}">
                             All Articles</a>
                     </li>
-                    <li class="nav-item {% block active_details %} {% endblock %}">
-                        <a class="nav-link" href="#">Post Details</a>
-                    </li>
+
                     <li class="nav-item">
-                        <a class="nav-link" href="contact.html">Contact Us</a>
+                        <a class="nav-link {% if request.resolver_match.url_name == 'about_us' %} active {% endif %}"
+                           href="{% url 'home_app:about_us' %}">About Us</a>
+                    </li>
+
+                    <li class="nav-item">
+                        <a class="nav-link {% if request.resolver_match.url_name == 'contact_us' %} active{% endif %}"
+                           href="{% url 'home_app:contact_us' %}">Contact Us</a>
                     </li>
                     <li class="nav-item">
                         {% if request.user.is_authenticated %}
@@ -49,7 +52,7 @@
                                 </button>
                             {% endif %}
                             <div class="dropdown-menu">
-                                <a class="dropdown-item" href="#">Profile</a>
+                                <a class="dropdown-item" href="{% url 'account:Profile' %}">Profile</a>
                                 <a class="dropdown-item" href="#">Another action</a>
                                 <div class="dropdown-divider"></div>
                                 <a class="dropdown-item" href="{% url 'account:logout' %}"><span
